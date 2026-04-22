@@ -14,6 +14,8 @@ import {
   prefixSlugWithDocs
 } from '@/utils/slug'
 import { DOCS_LATEST_VERSION, DOCS_VERSIONS } from '@/utils/global-data'
+import { setRoutesLoading } from '../Routes/routes-reducer'
+import { useAppDispatch } from '@/hooks/redux'
 
 const VersionBadgeWrapper = styled.div`
   ${CARD_STYLES};
@@ -71,12 +73,14 @@ export function VersionBadge(props: PropType) {
   const router = useRouter()
   const pathname = usePathname()
   const version = getVersionFromPathname(pathname)
+  const dispatch = useAppDispatch()
 
   function onVersionChange(event: ChangeEvent<HTMLSelectElement>) {
     const major = Number(event.target.value)
-    const nextPathname = `/${getVersionPathname(pathname, major)}`
+    const nextPathname = getVersionPathname(pathname, major)
 
     if (nextPathname === pathname) return
+    dispatch(setRoutesLoading(true))
     router.push(nextPathname)
   }
 
