@@ -8,7 +8,11 @@ import { BORDER_RADIUSES } from '@/utils/border'
 import { FONT_SIZES, FONT_WEIGHTS } from '@/utils/font-sizes'
 import { COLORS } from '@/utils/theme'
 import { usePathname, useRouter } from 'next/navigation'
-import { getVersionFromPathname } from '@/utils/slug'
+import {
+  getVersionFromPathname,
+  joinSlugs,
+  prefixSlugWithDocs
+} from '@/utils/slug'
 import { DOCS_LATEST_VERSION, DOCS_VERSIONS } from '@/utils/global-data'
 
 const VersionBadgeWrapper = styled.div`
@@ -54,8 +58,12 @@ function getDocsSubPath(pathname = ''): string[] {
 }
 
 function getVersionPathname(pathname = '', major: number): string {
-  const versionPrefix = major === DOCS_LATEST_VERSION.MAJOR ? [] : [`v${major}`]
-  return ['docs', ...versionPrefix, ...getDocsSubPath(pathname)].join('/')
+  const versionPrefix = major === DOCS_LATEST_VERSION.MAJOR ? '' : `v${major}`
+  const versionAndSubpath = joinSlugs(
+    versionPrefix,
+    ...getDocsSubPath(pathname)
+  )
+  return prefixSlugWithDocs(versionAndSubpath)
 }
 
 export function VersionBadge(props: PropType) {
