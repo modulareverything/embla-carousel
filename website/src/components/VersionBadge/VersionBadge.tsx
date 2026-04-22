@@ -15,7 +15,7 @@ const VersionBadgeWrapper = styled.div`
   ${CARD_STYLES};
   display: inline-flex;
   align-items: center;
-  padding: 0.6rem ${SPACINGS.THREE};
+  padding: ${SPACINGS.ONE} ${SPACINGS.THREE};
   border-radius: ${BORDER_RADIUSES.SOFT};
   font-size: ${FONT_SIZES.COMPLEMENTARY};
   color: ${COLORS.TEXT_LOW_CONTRAST};
@@ -23,7 +23,7 @@ const VersionBadgeWrapper = styled.div`
 
 const VersionBadgeKey = styled.label`
   font-weight: ${FONT_WEIGHTS.SEMI_BOLD};
-  margin-right: 0.4rem;
+  margin-right: ${SPACINGS.ONE};
 `
 
 const VersionSelect = styled.select`
