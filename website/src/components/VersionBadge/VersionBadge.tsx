@@ -43,15 +43,14 @@ const VersionSelect = styled.select`
 
 type PropType = {}
 
-const DOCS_VERSION_SEGMENT_REGEX = /^v\d+$/
+const DOCS_WITH_VERSION_REGEX = /^\/docs(?:\/v\d+)?/
 
 function getDocsSubPath(pathname = ''): string[] {
   if (!pathname.startsWith('/docs')) return []
-  const [, ...docsSubPath] = pathname.split('/').filter(Boolean)
-
-  return DOCS_VERSION_SEGMENT_REGEX.test(docsSubPath[0] ?? '')
-    ? docsSubPath.slice(1)
-    : docsSubPath
+  return pathname
+    .replace(DOCS_WITH_VERSION_REGEX, '')
+    .split('/')
+    .filter(Boolean)
 }
 
 function getVersionPathname(pathname = '', major: number): string {
